@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:untitled1/Dashboard.dart';
 
-import 'Classes.dart';
 import 'Register1.dart';
 import 'User.dart';
 
@@ -19,7 +19,7 @@ class Login1 extends StatefulWidget {
 class _Login1State extends State<Login1> {
   final _formKey = GlobalKey<FormState>();
   User user = User("", "");
-  String url = "http://192.168.1.105:8080/login";
+  String url = "http://192.168.56.1:8080/login";
   Future save() async {
     var res = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
@@ -29,7 +29,7 @@ class _Login1State extends State<Login1> {
     if (res.body != null) {
       Navigator.pop(context);
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Classe()));
+          context, MaterialPageRoute(builder: (context) => Dashboard()));
     }
   }
 

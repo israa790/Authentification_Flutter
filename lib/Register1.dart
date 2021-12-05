@@ -18,7 +18,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
   User user = User("", "");
-  String url = "http://192.168.1.105:8080/register";
+  String url = "http://192.168.56.1:8080/register";
   Future save() async {
     var res = await http.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json'},

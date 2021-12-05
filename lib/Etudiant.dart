@@ -5,30 +5,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class Classe extends StatefulWidget {
+class Etudiant extends StatefulWidget {
+  Etudiant(String s, String t, String u, String v, String w);
+
   @override
-  _ClasseState createState() => _ClasseState();
+  _EtudiantState createState() => _EtudiantState();
 }
 
-class _ClasseState extends State<Classe> {
-  List<dynamic>? listClasses;
+class _EtudiantState extends State<Etudiant> {
+  List<dynamic>? listEtd;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Classes'),
+        title: Text('Etudiant'),
       ),
       body: Center(
-          child: this.listClasses == null
+          child: this.listEtd == null
               ? CircularProgressIndicator()
               : ListView.builder(
-                  itemCount:
-                      (this.listClasses == null) ? 0 : listClasses!.length,
+                  itemCount: (this.listEtd == null) ? 0 : listEtd!.length,
                   itemBuilder: (context, index) {
                     return Card(
-                      color: Colors.purple,
                       child: RaisedButton(
-                        child: Text(listClasses![index]['nomClass']),
+                        child: Text(listEtd![index]['nom']),
                         onPressed: () {},
                       ),
                     );
@@ -39,19 +39,19 @@ class _ClasseState extends State<Classe> {
   @override
   void initState() {
     super.initState();
-    log("Loading classe");
-    loadClasse();
+    log("Loading etudiants");
+    loadEtudiant();
   }
 
-  void loadClasse() {
-    String url = "http://192.168.56.1:8080/classes";
+  void loadEtudiant() {
+    String url = "http://192.168.56.1:8080/etudiants";
     http.get(Uri.parse(url)).then((resp) {
       //faite attnetion à se niveau là
       // risque d'erreur
       log(resp.body.toString());
-      log(json.decode(resp.body)['_embedded']['classes']);
+      log(json.decode(resp.body)['_embedded']['etudiants']);
       setState(() {
-        this.listClasses = json.decode(resp.body)['_embedded']['classes'];
+        this.listEtd = json.decode(resp.body)['_embedded']['etudiants'];
       });
     }).catchError((err) {
       log(err.toString());
